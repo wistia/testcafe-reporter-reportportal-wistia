@@ -35,13 +35,13 @@ export default class ProductReport {
 
     startLaunch() {
         if (!this.connected) return 'Unknown Launch ID';
-        const launchObj = this.rpClient.startLaunch({
-            name: this.launchName,
-            description: this.description,
-            tags: this.tagsList
-        });
+//         const launchObj = this.rpClient.startLaunch({
+//             name: this.launchName,
+//             description: this.description,
+//             tags: this.tagsList
+//         });
 
-        return launchObj.tempId;
+        return process.env.REPORT_PORTAL_LAUNCH_ID;
     }
 
     captureFixtureItem(launchId, fixtureName) {
