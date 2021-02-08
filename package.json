@@ -1,8 +1,8 @@
 {
-  "name": "@wistia/testcafe-reporter-reportportal",
-  "version": "1.0.26.1",
-  "description": "TestCafe reporter plugin for reportportal.io",
-  "repository": "https://github.com/redfox256/testcafe-reporter-reportportal",
+  "name": "testcafe-reporter-reportportal-wistia",
+  "version": "1.0.27",
+  "description": "TestCafe reporter plugin for wistia's reportportal.io",
+  "repository": "https://github.com/wistia/testcafe-reporter-reportportal-wistia",
   "author": {
     "name": "Darryn",
     "email": "redfox256@gmail.com"
