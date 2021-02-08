@@ -35,11 +35,10 @@ export default class ProductReport {
 
     startLaunch() {
         if (!this.connected) return 'Unknown Launch ID';
-//         const launchObj = this.rpClient.startLaunch({
-//             name: this.launchName,
-//             description: this.description,
-//             tags: this.tagsList
-//         });
+
+        // fake out the internal data structure like we made a call to start the test. yuck.
+        this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID] = this.rpClient.getNewItemObj((resolve) => resolve({}));
+        this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID].realId = process.env.REPORT_PORTAL_LAUNCH_ID;
 
         return process.env.REPORT_PORTAL_LAUNCH_ID;
     }
