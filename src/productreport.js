@@ -35,12 +35,25 @@ export default class ProductReport {
 
     startLaunch() {
         if (!this.connected) return 'Unknown Launch ID';
+        let launchId;
 
-        // fake out the internal data structure like we made a call to start the test. yuck.
-        this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID] = this.rpClient.getNewItemObj((resolve) => resolve({}));
-        this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID].realId = process.env.REPORT_PORTAL_LAUNCH_ID;
+        if (process.env.REPORT_PORTAL_LAUNCH_ID === null) {
+            const launchObj = this.rpClient.startLaunch({
+                name: this.launchName,
+                description: this.description,
+                tags: this.tagsList
+            });
 
-        return process.env.REPORT_PORTAL_LAUNCH_ID;
+            launchId = launchObj.tempId;
+        } else {
+            // fake out the internal data structure like we made a call to start the test. yuck.
+            this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID] = this.rpClient.getNewItemObj((resolve) => resolve({}));
+            this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID].realId = process.env.REPORT_PORTAL_LAUNCH_ID;
+
+            launchId = process.env.REPORT_PORTAL_LAUNCH_ID;
+        }
+
+        return launchId;
     }
 
     captureFixtureItem(launchId, fixtureName) {
@@ -119,9 +132,11 @@ export default class ProductReport {
     async finishLaunch(launchId) {
         if (!this.connected) return;
         await this.finishFixture();
-        await this.rpClient.finishLaunch(launchId, {
-            end_time: this.rpClient.helpers.now()
-        });
+        if (process.env.REPORT_PORTAL_LAUNCH_ID === null) {
+            await this.rpClient.finishLaunch(launchId, {
+                end_time: this.rpClient.helpers.now()
+            });
+        }
     }
 
 }
