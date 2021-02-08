@@ -37,7 +37,13 @@ export default class ProductReport {
         if (!this.connected) return 'Unknown Launch ID';
         let launchId;
 
-        if (process.env.REPORT_PORTAL_LAUNCH_ID === null) {
+        if (process.env.REPORT_PORTAL_LAUNCH_ID) {
+            // fake out the internal data structure like we made a call to start the test. yuck.
+            this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID] = this.rpClient.getNewItemObj((resolve) => resolve({}));
+            this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID].realId = process.env.REPORT_PORTAL_LAUNCH_ID;
+
+            launchId = process.env.REPORT_PORTAL_LAUNCH_ID;
+        } else {
             const launchObj = this.rpClient.startLaunch({
                 name: this.launchName,
                 description: this.description,
@@ -45,12 +51,6 @@ export default class ProductReport {
             });
 
             launchId = launchObj.tempId;
-        } else {
-            // fake out the internal data structure like we made a call to start the test. yuck.
-            this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID] = this.rpClient.getNewItemObj((resolve) => resolve({}));
-            this.rpClient.map[process.env.REPORT_PORTAL_LAUNCH_ID].realId = process.env.REPORT_PORTAL_LAUNCH_ID;
-
-            launchId = process.env.REPORT_PORTAL_LAUNCH_ID;
         }
 
         return launchId;
@@ -132,7 +132,7 @@ export default class ProductReport {
     async finishLaunch(launchId) {
         if (!this.connected) return;
         await this.finishFixture();
-        if (process.env.REPORT_PORTAL_LAUNCH_ID === null) {
+        if (!process.env.REPORT_PORTAL_LAUNCH_ID) {
             await this.rpClient.finishLaunch(launchId, {
                 end_time: this.rpClient.helpers.now()
             });
