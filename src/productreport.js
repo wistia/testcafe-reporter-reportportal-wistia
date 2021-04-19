@@ -77,6 +77,9 @@ export default class ProductReport {
             type: 'STEP'
         }, launchId, fixtureId);
 
+        const debug_output = JSON.stringify(testRunInfo, null, 2);
+        console.log(debug_output);
+
         if (testRunInfo.screenshots) {
             testRunInfo.screenshots.forEach((screenshot, idx) => {
                 // console.log('screenshotPath -> ', screenshot.screenshotPath);
