@@ -12,7 +12,6 @@
     "lib"
   ],
   "scripts": {
-    "prepare": "gulp build",
     "test": "gulp test"
   },
   "keywords": [
