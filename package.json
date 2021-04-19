@@ -1,6 +1,6 @@
 {
   "name": "testcafe-reporter-reportportal-wistia",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "TestCafe reporter plugin for wistia's reportportal.io",
   "repository": "https://github.com/wistia/testcafe-reporter-reportportal-wistia",
   "author": {
