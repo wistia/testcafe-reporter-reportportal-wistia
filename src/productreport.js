@@ -98,6 +98,24 @@ export default class ProductReport {
             });
         }
 
+
+        if (testRunInfo.videos) {
+            testRunInfo.videos.forEach(function (video, idx) {
+
+                var videoContent = fs.readFileSync(video.videoPath);
+
+                _this2.rpClient.sendLog(stepObj.tempId, {
+                    status: 'error',
+                    message: 'Error Video',
+                    time: start_time
+                }, {
+                    name: stepName + '.mp4',
+                    type: 'video/mp4',
+                    content: videoContent
+                });
+            });
+        }
+
         if (testRunInfo.errs) {
             testRunInfo.errs.forEach((err, idx) => {
                 err = parentSelf.formatError(err);
