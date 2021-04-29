@@ -104,7 +104,7 @@ export default class ProductReport {
 
                 var videoContent = fs.readFileSync(video.videoPath);
 
-                _this2.rpClient.sendLog(stepObj.tempId, {
+                this.rpClient.sendLog(stepObj.tempId, {
                     status: 'error',
                     message: 'Error Video',
                     time: start_time
