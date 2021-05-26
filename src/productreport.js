@@ -100,8 +100,7 @@ export default class ProductReport {
 
 
         if (testRunInfo.videos) {
-            testRunInfo.videos.forEach(function (video, idx) {
-
+            testRunInfo.videos.forEach((video, idx) => {
                 var videoContent = fs.readFileSync(video.videoPath);
 
                 this.rpClient.sendLog(stepObj.tempId, {
